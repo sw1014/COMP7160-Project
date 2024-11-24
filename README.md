@@ -17,7 +17,8 @@ This project is a reproduction of [MonoGaussianAvatar](https://github.com/yufan1
 
 
 ## Getting Started
-* 环境配置过程中主要需要注意满足PyTorch3d, functorch, [gaussian-splatting](https://github.com/graphdeco-inria/gaussian-splatting),建议与本项目采用相同配置：python 3.9,pytorch 1.11.0, cuda 11.3
+To ensure compatibility with PyTorch3D, functorch, and [gaussian-splatting](https://github.com/graphdeco-inria/gaussian-splatting), it is recommended to use the following configurations: Python 3.9, PyTorch 1.11.0, and CUDA 11.3.
+
 
 * Create a conda or python environment and activate: `conda create -n monogshead python=3.9; conda activate monogshead`.
 * Install PyTorch 1.11.0:
@@ -28,15 +29,38 @@ This project is a reproduction of [MonoGaussianAvatar](https://github.com/yufan1
 * Install gaussian-splatting: 
 `cd submodules/; git clone https://github.com/graphdeco-inria/gaussian-splatting --recursive; cd gaussian-splatting/; pip install -e submodules/diff-gaussian-rasterization`
 
-##FLAME模型下载
-* Download [FLAME model](https://flame.is.tue.mpg.de/download.php), choose **FLAME 2020** and unzip it, copy 'generic_model.pkl' into `./code/flame/FLAME2020`
+## FLAME Model Download
+Download [FLAME model](https://flame.is.tue.mpg.de/download.php), choose **FLAME 2020** and unzip it, copy 'generic_model.pkl' into `./code/flame/FLAME2020`
 
 ## Preparing dataset
-This project use a preprocessed dataset [subject1](https://dataset.ait.ethz.ch/downloads/IMavatar_data/data/subject1.zip) from [IMavatar](https://github.com/zhengyuf/IMavatar/).
+This project use a preprocessed dataset [subject1](https://dataset.ait.ethz.ch/downloads/IMavatar_data/data/subject1.zip) from [IMavatar](https://github.com/zhengyuf/IMavatar/). If you'd like to generate your own dataset, please follow intructions in the [IMavatar repo](https://github.com/zhengyuf/IMavatar/tree/main/preprocess).
 
-If you'd like to generate your own dataset, please follow intructions in the [IMavatar repo](https://github.com/zhengyuf/IMavatar/tree/main/preprocess).
+## Project Directory Structure
 
-dataset的文件目录结构为：
+### COMP7160-Project
+- **code**
+  - **confs**: Configuration files
+  - **datasets**: Custom dataset classes
+  - **flame**
+    - **FLAME2020**: FLAME model files
+  - **model**: Model-related classes
+  - **scripts**: Training or evaluation scripts
+  - **utils**: Utility functions
+
+- **data**
+  - **datasets**: Directory for storing datasets
+    - **subject1** 
+      - **MVI_1810** 
+        - **deca**
+        - **image**
+        - **mask**
+        - **semantic**
+        - **semantic_color**
+
+  - **experiments**: Directory for storing experimental results
+
+- **submodules**
+  - **gaussian-splatting**: Files related to 3D Gaussian splatting
 
 
 
@@ -46,7 +70,7 @@ dataset的文件目录结构为：
 python scripts/exp_runner.py ---conf ./confs/subject1.conf [--is_continue]
 ```
 ## Evaluation
-Set the *is_eval* flag for evaluation, optionally set *checkpoint* (if not, the latest checkpoint will be used) and *load_path* 
+
 ```
 python scripts/exp_runner.py --conf ./confs/subject1.conf --is_eval [--checkpoint 60] [--load_path ...]
 ```
